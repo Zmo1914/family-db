@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.CONFLICT)
-public class StatusAlreadyExistException extends RuntimeException {
-    public StatusAlreadyExistException(String status) {
-        super("Status '" + status + "' already exists.");
+public class CityAlreadyExistException extends RuntimeException {
+    public CityAlreadyExistException(String city) {
+        super("City " + city + " already exists.");
     }
 }

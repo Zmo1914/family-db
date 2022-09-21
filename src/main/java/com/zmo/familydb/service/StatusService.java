@@ -23,7 +23,8 @@ public class StatusService {
             throw new StatusAlreadyExistException(statusDto.getStatus());
         }
 
-        Status status = Status.builder()
+        Status status = Status
+                .builder()
                 .status(statusDto.getStatus())
                 .build();
 
