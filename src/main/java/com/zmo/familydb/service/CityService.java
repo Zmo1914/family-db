@@ -8,6 +8,9 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -32,4 +35,14 @@ public class CityService {
         log.info("City with name '" + cityDto.getCityName() + "' is added in the data base.");
         cityRepository.save(city);
     }
+
+    public Optional<City> getCityById(Integer cityId){
+        return Optional.ofNullable(cityRepository.findCityByCityId(cityId));
+    }
+    public List<City> getAllMembers(){
+        return cityRepository.findAll();
+    }
+
+
+
 }
