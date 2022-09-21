@@ -18,7 +18,7 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public void AddCity(CityDto cityDto) throws CityAlreadyExistException{
+    public void AddCity(CityDto cityDto) throws CityAlreadyExistException {
         boolean isCityExists = cityRepository.existsCityByCityNameIgnoreCase(cityDto.getCityName());
 
         if (isCityExists) {
@@ -26,9 +26,7 @@ public class CityService {
             throw new CityAlreadyExistException(cityDto.getCityName());
 
         }
-
-        City city = City
-                .builder()
+        City city = City.builder()
                 .cityName(cityDto.getCityName())
                 .build();
 
@@ -36,13 +34,13 @@ public class CityService {
         cityRepository.save(city);
     }
 
-    public Optional<City> getCityById(Integer cityId){
+    public Optional<CityDto> getCityById(Integer cityId) {
         return Optional.ofNullable(cityRepository.findCityByCityId(cityId));
     }
-    public List<City> getAllMembers(){
+
+    public List<City> getAllMembers() {
         return cityRepository.findAll();
     }
-
 
 
 }
