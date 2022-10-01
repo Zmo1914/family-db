@@ -2,6 +2,7 @@ package com.zmo.familydb.service;
 
 import com.zmo.familydb.dto.CityDto;
 import com.zmo.familydb.exception.CityAlreadyExistException;
+import com.zmo.familydb.exception.RecordAlreadyExistsException;
 import com.zmo.familydb.model.City;
 import com.zmo.familydb.repository.CityRepository;
 import lombok.AllArgsConstructor;
@@ -18,20 +19,21 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public void AddCity(CityDto cityDto) throws CityAlreadyExistException {
+    public void AddCity(CityDto cityDto) {
         boolean isCityExists = cityRepository.existsCityByCityNameIgnoreCase(cityDto.getCityName());
 
-        if (isCityExists) {
+        if (!isCityExists) {
+            City city = City.builder()
+                    .cityName(cityDto.getCityName())
+                    .build();
+
+            log.info("City with name '" + cityDto.getCityName() + "' is added in the data base.");
+            cityRepository.save(city);
+        } else {
             log.error("City " + cityDto.getCityName() + " not added.");
-            throw new CityAlreadyExistException(cityDto.getCityName());
-
+            throw new RecordAlreadyExistsException(cityDto.getCityName());
         }
-        City city = City.builder()
-                .cityName(cityDto.getCityName())
-                .build();
 
-        log.info("City with name '" + cityDto.getCityName() + "' is added in the data base.");
-        cityRepository.save(city);
     }
 
     public Optional<CityDto> getCityById(Integer cityId) {
