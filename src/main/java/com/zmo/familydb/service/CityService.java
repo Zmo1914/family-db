@@ -55,7 +55,6 @@ public class CityService {
         return allCities;
     }
 
-
     public void deleteCity(String name) {
         boolean isCityExists = cityRepository.existsCityByCityNameIgnoreCase(name);
 
@@ -76,10 +75,7 @@ public class CityService {
         } else {
             throw new RecordNotFoundException("City with id '" + cityId + "' not found.");
         }
-
-
     }
-
 }
 
 

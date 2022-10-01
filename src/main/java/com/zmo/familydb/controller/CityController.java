@@ -1,7 +1,6 @@
 package com.zmo.familydb.controller;
 
 import com.zmo.familydb.dto.CityDto;
-import com.zmo.familydb.exception.RecordAlreadyExistsException;
 import com.zmo.familydb.exception.RecordNotFoundException;
 import com.zmo.familydb.model.City;
 import com.zmo.familydb.service.CityService;
@@ -10,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +28,6 @@ public class CityController {
         cityService.AddCity(cityDto);
     }
 
-
     @DeleteMapping("/delete/{cityName}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void deleteCity(@PathVariable String cityName) {
@@ -42,7 +39,6 @@ public class CityController {
     public void deleteCity(@PathVariable Integer cityId) {
         cityService.deleteCity(cityId);
     }
-
 
     @GetMapping("/{cityId}")
     public ResponseEntity<CityDto> getCityBy(@PathVariable Integer cityId) throws RecordNotFoundException {
@@ -58,5 +54,4 @@ public class CityController {
     public List<City> getAll() {
         return cityService.getAllMembers();
     }
-
 }
