@@ -1,6 +1,7 @@
 package com.zmo.familydb.controller;
 
 import com.zmo.familydb.dto.CityDto;
+import com.zmo.familydb.exception.RecordAlreadyExistsException;
 import com.zmo.familydb.exception.RecordNotFoundException;
 import com.zmo.familydb.model.City;
 import com.zmo.familydb.service.CityService;

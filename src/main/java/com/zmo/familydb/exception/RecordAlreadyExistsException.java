@@ -5,9 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @Slf4j
-@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Record already exist!!!")
+@ResponseStatus(value = HttpStatus.CONFLICT, reason = "Record already exist.")
 public class RecordAlreadyExistsException extends RuntimeException {
     public RecordAlreadyExistsException(String message) {
-        log.info("Record with data '" + message + "' already exists.");
+        log.info(message);
+        printStackTrace();
     }
 }
