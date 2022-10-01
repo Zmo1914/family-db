@@ -26,5 +26,8 @@ public interface CityRepository extends JpaRepository<City, Integer> {
     @Query(value = "DELETE FROM city WHERE city_name = city_name", nativeQuery = true)
     Integer deleteByName(String city_name);
 
-
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM city WHERE city_id = city_id", nativeQuery = true)
+    void deleteByCityId(Integer city_id);
 }

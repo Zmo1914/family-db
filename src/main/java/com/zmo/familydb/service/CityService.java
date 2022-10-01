@@ -66,6 +66,20 @@ public class CityService {
             throw new RecordNotFoundException("City with name " + name + " not found.");
         }
     }
+
+    public void deleteCity(Integer cityId){
+        boolean isCityExists = cityRepository.existsCityByCityId(cityId);
+
+        if (isCityExists) {
+            cityRepository.deleteByCityId(cityId);
+            log.info("City with id '" + cityId + "' is deleted.");
+        } else {
+            throw new RecordNotFoundException("City with id '" + cityId + "' not found.");
+        }
+
+
+    }
+
 }
 
 

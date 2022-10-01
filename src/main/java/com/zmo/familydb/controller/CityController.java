@@ -31,10 +31,16 @@ public class CityController {
     }
 
 
-    @DeleteMapping("/{cityName}")
+    @DeleteMapping("/delete/{cityName}")
     @ResponseStatus(value = HttpStatus.ACCEPTED)
     public void deleteCity(@PathVariable String cityName) {
         cityService.deleteCity(cityName);
+    }
+
+    @DeleteMapping("/delete/{cityId}")
+    @ResponseStatus(value = HttpStatus.ACCEPTED)
+    public void deleteCity(@PathVariable Integer cityId) {
+        cityService.deleteCity(cityId);
     }
 
 
