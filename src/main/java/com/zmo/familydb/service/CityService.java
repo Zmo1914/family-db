@@ -55,18 +55,23 @@ public class CityService {
         return allCities;
     }
 
-    public void deleteCity(String name) {
-        boolean isCityExists = cityRepository.existsCityByCityNameIgnoreCase(name);
-
-        if (isCityExists) {
-            cityRepository.deleteByName(name);
-            log.info("City with name '" + name + "' is deleted.");
-        } else {
-            throw new RecordNotFoundException("City with name " + name + " not found.");
+    public void deleteCity(String cityName) {
+        try {
+            isCityExists(cityName);
+            cityRepository.deleteByName(cityName);
+            log.info("City with name '" + cityName + "' is deleted.");
+        } catch (RecordNotFoundException ex) {
+            log.error(ex.getMessage());
         }
     }
 
-    public void deleteCity(Integer cityId){
+    private boolean isCityExists(String cityName) {
+        if (cityRepository.existsCityByCityNameIgnoreCase(cityName))
+            return true;
+        throw new RecordNotFoundException("City '" + cityName + "' not found.");
+    }
+
+    public void deleteCity(Integer cityId) {
         boolean isCityExists = cityRepository.existsCityByCityId(cityId);
 
         if (isCityExists) {
