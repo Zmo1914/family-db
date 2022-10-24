@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @AllArgsConstructor
 @Service
@@ -30,6 +32,14 @@ public class StatusService {
 
         statusRepository.save(status);
         log.info("Status " + statusDto.getStatus() + " is added.");
+    }
+
+    public List<Status> getAllStatuses() {
+        List<Status> allStatuses = statusRepository.findAll();
+        if (allStatuses.isEmpty()) {
+            log.info("No statuses found.");
+        }
+        return allStatuses;
     }
 }
 

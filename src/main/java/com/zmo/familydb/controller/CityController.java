@@ -34,14 +34,6 @@ public class CityController {
         cityService.deleteCity(cityName);
     }
 
-/*
-    @DeleteMapping("/delete/{cityId}")
-    @ResponseStatus(value = HttpStatus.ACCEPTED)
-    public void deleteCity(@PathVariable Integer cityId) {
-        cityService.deleteCity(cityId);
-    }
-*/
-
     @GetMapping("/{cityId}")
     public ResponseEntity<CityDto> getCityBy(@PathVariable Integer cityId) throws RecordNotFoundException {
         Optional<CityDto> city = cityService.getCityById(cityId);
