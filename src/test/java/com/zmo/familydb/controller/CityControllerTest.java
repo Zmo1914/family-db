@@ -9,10 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.zmo.familydb.dto.CityDto;
 import com.zmo.familydb.exception.RecordNotFoundException;
-import com.zmo.familydb.repository.CityRepository;
 import com.zmo.familydb.service.CityService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,9 +20,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
 
+/*
+With these annotations, spring create call to the real DB.
+@SpringBootTest
+@AutoConfigureMockMvc
+ */
 
-//@SpringBootTest
-//@AutoConfigureMockMvc
 @WebMvcTest(controllers = CityController.class)
 class CityControllerTest {
     @Autowired
@@ -32,7 +33,6 @@ class CityControllerTest {
 
     @MockBean
     CityService cityService;
-
 
     @Test
     public void canRetrieveByIdWhenExists() throws Exception {
@@ -56,5 +56,4 @@ class CityControllerTest {
                 .andExpect(header().string("message-header", "No city with ID: 1"))
                 .andDo(print());
     }
-
 }
