@@ -6,6 +6,8 @@ import com.zmo.familydb.model.City;
 import com.zmo.familydb.service.CityService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +19,6 @@ import java.util.Optional;
 @AllArgsConstructor
 @RestController
 @RequestMapping(path = "family_db/v1/city")
-
 public class CityController {
 
     private final CityService cityService;
@@ -37,10 +38,14 @@ public class CityController {
     @GetMapping("/{cityId}")
     public ResponseEntity<CityDto> getCityBy(@PathVariable Integer cityId) {
         try {
-            return new ResponseEntity<>(cityService.getCityById(cityId).get(), HttpStatus.OK);
+            CityDto cityDto = cityService.getCityById(cityId).get();
+            log.info("Returned City with ID " + cityDto.getCityId().toString() + " and name " + cityDto.getCityName());
+            return new ResponseEntity<>(cityDto, HttpStatus.OK);
         }catch (RecordNotFoundException ex){
             ex.getMessage();
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("message-header", "No city with ID: " + cityId);
+            return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
         }
     }
 

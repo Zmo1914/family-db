@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="30 seconds" debug="true" packagingData="true">
+<configuration scan="true" scanPeriod="30 seconds" packagingData="true">
     <property name="LOG_FILE" value="LogFile"/>
 
     <timestamp key="byMinutes" datePattern="yyyy_MM_dd_HHmm"/>
@@ -7,26 +7,23 @@
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>
-                %d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} : %msg%n
+                %green(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable
             </pattern>
         </encoder>
     </appender>
 
     <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
 
-        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <maxFileSize>3MB</maxFileSize>
-        </triggeringPolicy>
-
         <encoder>
             <pattern>
-                %d{HH:mm:ss.SSS} [%thread] %-5level %logger : %msg%xEx%n
+                %d{HH:mm:ss.SSS} [%thread] %-5level %logger: %msg%n%throwable
             </pattern>
         </encoder>
 
         <triggeringPolicy
                 class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-            <maxFileSize>3GB</maxFileSize>
+
+            <maxFileSize>1MB</maxFileSize>
         </triggeringPolicy>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
