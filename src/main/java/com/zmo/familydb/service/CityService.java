@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
@@ -36,16 +37,18 @@ public class CityService {
         }
     }
 
-    public Optional<CityDto> getCityById(Integer cityId) {
-        boolean isCityExists = cityRepository.existsCityByCityId(cityId);
 
-        if (isCityExists) {
-            return Optional.ofNullable(cityRepository.findCityByCityId(cityId));
-        } else {
-            log.error("City with id '" + cityId + "' not exists.");
-            throw new RecordNotFoundException("City with id " + cityId.toString() + " not found.");
+    public Optional<CityDto> getCityById(Integer cityId) {
+        Optional<CityDto> city;
+
+        if (cityRepository.existsCityByCityId(cityId)){
+            city = Optional.ofNullable(cityRepository.findCityByCityId(cityId));
+        }else {
+            throw new RecordNotFoundException("City not found");
         }
+        return city;
     }
+
 
     public List<City> getAllMembers() {
         List<City> allCities = cityRepository.findAll();
@@ -66,10 +69,18 @@ public class CityService {
     }
 
     private boolean isCityExists(String cityName) {
-        if (cityRepository.existsCityByCityNameIgnoreCase(cityName))
-            return true;
+       if(cityRepository.existsCityByCityNameIgnoreCase(cityName)) {
+           return true;
+       }
         throw new RecordNotFoundException("City '" + cityName + "' not found.");
     }
+
+    private boolean isCityExists(Integer cityId) {
+        if (cityRepository.existsCityByCityId(cityId))
+            return true;
+        throw new RecordNotFoundException("City not found.");
+    }
+
 
     public void deleteCity(Integer cityId) {
         boolean isCityExists = cityRepository.existsCityByCityId(cityId);

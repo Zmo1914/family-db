@@ -35,12 +35,12 @@ public class CityController {
     }
 
     @GetMapping("/{cityId}")
-    public ResponseEntity<CityDto> getCityBy(@PathVariable Integer cityId) throws RecordNotFoundException {
-        Optional<CityDto> city = cityService.getCityById(cityId);
-        if (city.isPresent()) {
-            return new ResponseEntity<>(city.get(), HttpStatus.OK);
-        } else {
-            throw new RecordNotFoundException("No city with id '" + cityId + "' not found.");
+    public ResponseEntity<CityDto> getCityBy(@PathVariable Integer cityId) {
+        try {
+            return new ResponseEntity<>(cityService.getCityById(cityId).get(), HttpStatus.OK);
+        }catch (RecordNotFoundException ex){
+            ex.getMessage();
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

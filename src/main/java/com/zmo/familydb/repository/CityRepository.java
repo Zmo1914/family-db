@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 @Transactional
@@ -20,6 +21,8 @@ public interface CityRepository extends JpaRepository<City, Integer> {
     boolean existsCityByCityId(Integer cityId);
 
     CityDto findCityByCityId(Integer cityId);
+
+    //Optional<CityDto> findCityByCityId(Integer cityId);
 
     @Transactional
     @Modifying
