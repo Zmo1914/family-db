@@ -24,8 +24,9 @@ public class CityController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public void registerCity(@RequestBody CityDto cityDto) {
-        cityService.AddCity(cityDto);
+    public ResponseEntity<CityDto> registerCity(@RequestBody CityDto cityDto) {
+        CityDto newCity =  cityService.AddCity(cityDto);
+        return new ResponseEntity<>(newCity, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete/{cityName}")

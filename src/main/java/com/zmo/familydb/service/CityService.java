@@ -20,7 +20,7 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public void AddCity(CityDto cityDto) {
+    public CityDto AddCity(CityDto cityDto) {
         boolean isCityExists = cityRepository.existsCityByCityNameIgnoreCase(cityDto.getCityName());
 
         if (!isCityExists) {
@@ -31,12 +31,12 @@ public class CityService {
 
             cityRepository.save(city);
             log.info("City with name '" + cityDto.getCityName() + "' is added.");
+            return new CityDto(city.getCityId(), cityDto.getCityName());
         } else {
             log.error("City " + cityDto.getCityName() + " not added.");
             throw new RecordAlreadyExistsException("City with name " + cityDto.getCityName() + " already exists.");
         }
     }
-
 
     public Optional<CityDto> getCityById(Integer cityId) {
         Optional<CityDto> city;
@@ -48,7 +48,6 @@ public class CityService {
         }
         return city;
     }
-
 
     public List<City> getAllMembers() {
         List<City> allCities = cityRepository.findAll();
@@ -80,7 +79,6 @@ public class CityService {
             return true;
         throw new RecordNotFoundException("City not found.");
     }
-
 
     public void deleteCity(Integer cityId) {
         boolean isCityExists = cityRepository.existsCityByCityId(cityId);
