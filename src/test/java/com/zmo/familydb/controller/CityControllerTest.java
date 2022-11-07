@@ -35,7 +35,7 @@ class CityControllerTest {
     CityService cityService;
 
     @Test
-    public void canRetrieveByIdWhenExists() throws Exception {
+    public void assertCanRetrieveByIdWhenExists() throws Exception {
         CityDto city = new CityDto(1, "NameOfTheCity");
 
         when(cityService.getCityById(eq(1))).thenReturn(Optional.of(city));
@@ -56,4 +56,15 @@ class CityControllerTest {
                 .andExpect(header().string("message-header", "No city with ID: 1"))
                 .andDo(print());
     }
+
+/*
+    void assertCanAddCity(){
+        CityDto city = new CityDto(1, "NameOfTheCity");
+
+        when(cityService.AddCity(city)).thenReturn(city);
+
+        this.mockMvc.perform()
+    }
+*/
+
 }
