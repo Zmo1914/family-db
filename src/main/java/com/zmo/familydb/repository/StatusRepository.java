@@ -11,6 +11,6 @@ public interface StatusRepository extends JpaRepository<Status, Integer> {
 
     boolean existsStatusByStatus(String status);
 
-   // boolean existStatusByStatusId(Integer statusId);
+    // boolean existStatusByStatusId(Integer statusId);
 
 }
