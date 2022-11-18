@@ -10,7 +10,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Slf4j
@@ -20,7 +19,7 @@ public class CityService {
 
     private final CityRepository cityRepository;
 
-    public CityDto AddCity(CityDto cityDto) {
+    public CityDto addCity(CityDto cityDto) {
         boolean isCityExists = cityRepository.existsCityByCityNameIgnoreCase(cityDto.getCityName());
 
         if (!isCityExists) {

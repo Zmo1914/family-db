@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @AllArgsConstructor
@@ -25,7 +24,7 @@ public class CityController {
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public ResponseEntity<CityDto> registerCity(@RequestBody CityDto cityDto) {
-        CityDto newCity =  cityService.AddCity(cityDto);
+        CityDto newCity =  cityService.addCity(cityDto);
         return new ResponseEntity<>(newCity, HttpStatus.CREATED);
     }
 
